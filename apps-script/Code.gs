@@ -3,8 +3,8 @@
 // ------------------------------------------------------------
 // Cara pakai: lihat PANDUAN-SETUP.md di root folder proyek.
 // Script ini menulis setiap hasil pre/post-test ke satu Google
-// Sheet ("Responses") dan menyediakan endpoint baca yang dijaga
-// kode akses panitia.
+// Sheet ("Responses"), menyediakan endpoint baca yang dijaga
+// kode akses panitia, dan menyimpan status buka/tutup Post-Test.
 // ============================================================
 
 // HARUS SAMA PERSIS dengan CONFIG.PANITIA_PASSWORD di js/config.js
@@ -15,6 +15,8 @@ var HEADERS = [
   "Waktu", "Nama", "Email", "NIM", "Prodi", "WhatsApp",
   "Tipe", "Skor", "Total", "Persentase", "DurasiDetik",
 ];
+
+var POST_TEST_PROP_KEY = "postTestEnabled";
 
 function getSheet_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -49,28 +51,49 @@ function asText_(value) {
   return "'" + String(value);
 }
 
+// Default TERBUKA kalau belum pernah di-set panitia sama sekali.
+function isPostTestEnabled_() {
+  var raw = PropertiesService.getScriptProperties().getProperty(POST_TEST_PROP_KEY);
+  if (raw === null) return true;
+  return raw === "true";
+}
+
 function doPost(e) {
   try {
     var body = JSON.parse(e.postData.contents);
-    if (body.action !== "submit" || !body.entry) {
-      return jsonOutput_({ ok: false, error: "invalid_payload" });
+
+    if (body.action === "submit") {
+      if (!body.entry) return jsonOutput_({ ok: false, error: "invalid_payload" });
+      var entry = body.entry;
+      var sheet = getSheet_();
+      sheet.appendRow([
+        entry.waktu || new Date().toISOString(),
+        entry.nama || "",
+        entry.email || "",
+        asText_(entry.nim),
+        entry.prodi || "",
+        asText_(entry.wa),
+        entry.tipe || "",
+        entry.skor != null ? entry.skor : "",
+        entry.total != null ? entry.total : "",
+        entry.persentase != null ? entry.persentase : "",
+        entry.durasiDetik != null ? entry.durasiDetik : "",
+      ]);
+      return jsonOutput_({ ok: true });
     }
-    var entry = body.entry;
-    var sheet = getSheet_();
-    sheet.appendRow([
-      entry.waktu || new Date().toISOString(),
-      entry.nama || "",
-      entry.email || "",
-      asText_(entry.nim),
-      entry.prodi || "",
-      asText_(entry.wa),
-      entry.tipe || "",
-      entry.skor != null ? entry.skor : "",
-      entry.total != null ? entry.total : "",
-      entry.persentase != null ? entry.persentase : "",
-      entry.durasiDetik != null ? entry.durasiDetik : "",
-    ]);
-    return jsonOutput_({ ok: true });
+
+    if (body.action === "setPostTest") {
+      if (body.password !== PANITIA_PASSWORD) {
+        return jsonOutput_({ ok: false, error: "unauthorized" });
+      }
+      PropertiesService.getScriptProperties().setProperty(
+        POST_TEST_PROP_KEY,
+        body.enabled ? "true" : "false"
+      );
+      return jsonOutput_({ ok: true, postTestEnabled: isPostTestEnabled_() });
+    }
+
+    return jsonOutput_({ ok: false, error: "invalid_payload" });
   } catch (err) {
     return jsonOutput_({ ok: false, error: String(err) });
   }
@@ -78,6 +101,13 @@ function doPost(e) {
 
 function doGet(e) {
   var params = e.parameter || {};
+
+  // Publik, tanpa kode akses — dipanggil dari halaman utama semua peserta
+  // untuk tahu apakah Post-Test sudah dibuka panitia.
+  if (params.action === "status") {
+    return jsonOutput_({ ok: true, postTestEnabled: isPostTestEnabled_() });
+  }
+
   if (params.action !== "list") {
     return jsonOutput_({ ok: false, error: "unknown_action" });
   }
@@ -109,5 +139,5 @@ function doGet(e) {
       };
     });
 
-  return jsonOutput_({ ok: true, data: data });
+  return jsonOutput_({ ok: true, data: data, postTestEnabled: isPostTestEnabled_() });
 }

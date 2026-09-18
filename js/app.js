@@ -99,7 +99,26 @@
     $("#f-nama").focus();
   }
   $("#card-pre").addEventListener("click", () => startFlow("pre"));
-  $("#card-post").addEventListener("click", () => startFlow("post"));
+  $("#card-post").addEventListener("click", () => {
+    if (!postTestEnabled) return;
+    startFlow("post");
+  });
+
+  // ---------------- Post-Test lock (dikontrol panitia) ----------------
+  let postTestEnabled = true;
+
+  function applyPostTestLockUI() {
+    $("#card-post").classList.toggle("is-locked", !postTestEnabled);
+    $("#post-test-cta").hidden = !postTestEnabled;
+    $("#post-test-locked").hidden = postTestEnabled;
+  }
+
+  async function refreshPostTestLock() {
+    const res = await Api.fetchPostTestStatus();
+    postTestEnabled = res.enabled;
+    applyPostTestLockUI();
+  }
+  refreshPostTestLock();
 
   // ---------------- Identity form ----------------
   $("#identity-form").addEventListener("submit", (e) => {
@@ -414,10 +433,37 @@
       return;
     }
     dashData = res.data || [];
+    postTestEnabled = res.postTestEnabled !== false;
+    applyPostTestLockUI();
+    setToggleUI(postTestEnabled, false);
     renderDashboard();
   }
 
   $("#btn-dash-refresh").addEventListener("click", loadDashboard);
+
+  // ---------------- Toggle akses Post-Test (panitia) ----------------
+  const toggleBtn = $("#btn-posttest-toggle");
+  function setToggleUI(enabled, busy) {
+    toggleBtn.setAttribute("aria-checked", String(enabled));
+    toggleBtn.disabled = Boolean(busy);
+    $("#posttest-toggle-sub").textContent = busy
+      ? "Menyimpan…"
+      : enabled
+      ? "Peserta bisa mulai Post-Test sekarang."
+      : "Post-Test terkunci untuk peserta sampai kamu buka.";
+  }
+  toggleBtn.addEventListener("click", async () => {
+    const next = toggleBtn.getAttribute("aria-checked") !== "true";
+    setToggleUI(next, true);
+    const res = await Api.setPostTestEnabled(panitiaPassword, next);
+    if (!res.ok) {
+      setToggleUI(!next, false); // gagal, kembalikan ke keadaan semula
+      return;
+    }
+    postTestEnabled = res.enabled;
+    applyPostTestLockUI();
+    setToggleUI(postTestEnabled, false);
+  });
 
   $("#dash-filter").addEventListener("click", (e) => {
     const btn = e.target.closest(".segmented-btn");
@@ -473,8 +519,56 @@
     return list;
   }
 
+  // ---------------- Leaderboard (skor 100%, tercepat, tanpa duplikat) ----------------
+  let leaderboardFilter = "pre";
+  const MEDALS = ["🥇", "🥈", "🥉"];
+
+  $("#leaderboard-filter").addEventListener("click", (e) => {
+    const btn = e.target.closest(".segmented-btn");
+    if (!btn) return;
+    leaderboardFilter = btn.dataset.lbFilter;
+    $$(".segmented-btn", $("#leaderboard-filter")).forEach((b) => b.classList.toggle("is-active", b === btn));
+    renderLeaderboard();
+  });
+
+  function renderLeaderboard() {
+    const perfect = dashData.filter((d) => d.tipe === leaderboardFilter && Number(d.persentase) === 100);
+
+    // satu peserta (per NIM) dihitung sekali — ambil attempt tercepatnya
+    const bestByNim = new Map();
+    perfect.forEach((d) => {
+      const key = String(d.nim || d.email || d.nama);
+      const existing = bestByNim.get(key);
+      if (!existing || Number(d.durasiDetik) < Number(existing.durasiDetik)) {
+        bestByNim.set(key, d);
+      }
+    });
+
+    const ranked = Array.from(bestByNim.values())
+      .sort((a, b) => Number(a.durasiDetik) - Number(b.durasiDetik))
+      .slice(0, 3);
+
+    const listEl = $("#leaderboard-list");
+    if (!ranked.length) {
+      listEl.innerHTML = `<p class="leaderboard-empty">Belum ada peserta dengan skor 100% di ${leaderboardFilter === "pre" ? "Pre-Test" : "Post-Test"}.</p>`;
+      return;
+    }
+    listEl.innerHTML = ranked
+      .map((d, i) => `
+        <div class="leaderboard-item leaderboard-item--${i + 1}">
+          <span class="leaderboard-rank">${MEDALS[i]}</span>
+          <span class="leaderboard-main">
+            <span class="leaderboard-name">${escapeHtml(d.nama)}</span><br>
+            <span class="leaderboard-nim">${escapeHtml(d.nim)}</span>
+          </span>
+          <span class="leaderboard-time">${formatDuration(Number(d.durasiDetik) || 0)}</span>
+        </div>`)
+      .join("");
+  }
+
   function renderDashboard() {
     renderDashTiles();
+    renderLeaderboard();
     const list = getFilteredSorted();
     const tbody = $("#dash-tbody");
     if (!list.length) {

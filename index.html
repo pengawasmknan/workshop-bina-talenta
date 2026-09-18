@@ -75,10 +75,14 @@
           <div class="test-card-inner">
             <span class="test-tag">Setelah Sesi</span>
             <h2>Post&#8209;Test</h2>
-            <p>Refleksikan apa yang sudah kamu pelajari hari ini.</p>
-            <span class="test-cta">
+            <p id="post-test-desc">Refleksikan apa yang sudah kamu pelajari hari ini.</p>
+            <span class="test-cta" id="post-test-cta">
               Mulai Post-Test
               <span class="cta-arrow-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+            </span>
+            <span class="test-cta test-cta-locked" id="post-test-locked" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="15" height="15"><rect x="5" y="10.5" width="14" height="9" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>
+              Menunggu dibuka panitia
             </span>
           </div>
         </button>
@@ -243,6 +247,16 @@
         </div>
       </div>
 
+      <div class="toggle-card">
+        <div class="toggle-card-text">
+          <p class="toggle-card-title">Akses Post-Test untuk Peserta</p>
+          <p class="toggle-card-sub" id="posttest-toggle-sub">Memuat status&hellip;</p>
+        </div>
+        <button class="switch" id="btn-posttest-toggle" role="switch" aria-checked="false" type="button" disabled>
+          <span class="switch-knob"></span>
+        </button>
+      </div>
+
       <div class="dash-tiles">
         <div class="dash-tile">
           <span class="dash-tile-value" id="tile-total">0</span>
@@ -259,6 +273,23 @@
         <div class="dash-tile dash-tile--accent">
           <span class="dash-tile-value" id="tile-delta">&mdash;</span>
           <span class="dash-tile-label">Peningkatan Rata-rata</span>
+        </div>
+      </div>
+
+      <div class="leaderboard-card">
+        <div class="leaderboard-head">
+          <div>
+            <p class="eyebrow">Doorprize</p>
+            <h3 class="leaderboard-title">Papan Peringkat</h3>
+            <p class="leaderboard-sub">Skor 100% &amp; tercepat menang &mdash; satu peserta dihitung sekali (attempt tercepatnya).</p>
+          </div>
+          <div class="segmented" id="leaderboard-filter" role="tablist">
+            <button class="segmented-btn is-active" data-lb-filter="pre" type="button">Pre-Test</button>
+            <button class="segmented-btn" data-lb-filter="post" type="button">Post-Test</button>
+          </div>
+        </div>
+        <div class="leaderboard-list" id="leaderboard-list">
+          <p class="leaderboard-empty">Memuat&hellip;</p>
         </div>
       </div>
 
