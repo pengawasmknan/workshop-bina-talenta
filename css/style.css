@@ -21,6 +21,8 @@
   --teal-ink: #0B333D;
   --gold: #FFC801;
   --gold-ink: #6B4B00;
+  --gold-panel: #FCF0CE;
+  --gold-panel-border: #E7BA53;
   --coral: #FF9932;
   --coral-ink: #A85400;
   --mint: #2E9E6E;
@@ -58,6 +60,8 @@
     --teal-ink: #BFE8ED;
     --gold: #FFC801;
     --gold-ink: #FFE28A;
+    --gold-panel: #3A2C0E;
+    --gold-panel-border: #B98A2A;
     --coral: #FF9932;
     --coral-ink: #FFD3A0;
     --mint: #59C695;
@@ -86,6 +90,8 @@
   --teal-ink: #BFE8ED;
   --gold: #FFC801;
   --gold-ink: #FFE28A;
+  --gold-panel: #3A2C0E;
+  --gold-panel-border: #B98A2A;
   --coral: #FF9932;
   --coral-ink: #FFD3A0;
   --mint: #59C695;
@@ -197,8 +203,8 @@ canvas#confetti{
   font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--gold-ink); margin: 0 0 14px;
   padding: 6px 14px; border-radius: 999px;
-  background: color-mix(in srgb, var(--gold) 22%, transparent);
-  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  background: var(--gold-panel);
+  border: 1px solid var(--gold-panel-border);
 }
 .display-xl{ font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.02; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
 .display-md{ font-size: clamp(1.6rem, 3.4vw, 2.2rem); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; margin: 14px 0 8px; }
@@ -212,7 +218,7 @@ canvas#confetti{
   background: var(--bg-soft); color: var(--teal); border: 1px solid var(--line-strong);
   margin-bottom: 6px;
 }
-.pill-mode{ background: color-mix(in srgb, var(--gold) 18%, transparent); color: var(--gold-ink); border-color: color-mix(in srgb, var(--gold) 40%, transparent); }
+.pill-mode{ background: var(--gold-panel); color: var(--gold-ink); border-color: var(--gold-panel-border); }
 .pill-panitia{ background: color-mix(in srgb, var(--teal) 14%, transparent); color: var(--teal); }
 .pill-source{ text-transform: none; letter-spacing: 0; font-weight: 600; }
 
@@ -243,8 +249,8 @@ canvas#confetti{
   box-shadow: var(--inset-hi);
   position: relative; overflow: hidden;
 }
-.test-card--pre .test-card-inner{ background: linear-gradient(155deg, var(--surface) 45%, color-mix(in srgb, var(--gold) 26%, var(--surface))); }
-.test-card--post .test-card-inner{ background: linear-gradient(155deg, var(--surface) 55%, color-mix(in srgb, var(--gold) 16%, var(--surface))); }
+.test-card--pre .test-card-inner{ background: linear-gradient(155deg, var(--surface) 40%, var(--gold-panel)); }
+.test-card--post .test-card-inner{ background: linear-gradient(155deg, var(--surface) 55%, var(--gold-panel)); }
 .test-tag{ font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
 .test-card h2{ font-size: 1.7rem; margin: 6px 0 8px; font-weight: 600; }
 .test-card p{ font-size: 0.92rem; color: var(--ink-soft); max-width: 32ch; }
@@ -252,7 +258,7 @@ canvas#confetti{
 
 .cta-arrow-wrap{
   display: grid; place-items: center; width: 30px; height: 30px; border-radius: 999px;
-  background: color-mix(in srgb, var(--gold) 20%, transparent);
+  background: var(--gold-panel);
   transition: transform 480ms var(--ease-spring), background 300ms;
 }
 .cta-arrow-wrap svg{ width: 15px; height: 15px; }
@@ -261,8 +267,8 @@ canvas#confetti{
 .mini-note{
   display: flex; gap: 10px; align-items: flex-start;
   padding: 14px 16px; border-radius: 1.1rem;
-  background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--ink);
-  border: 1px solid color-mix(in srgb, var(--gold) 38%, transparent);
+  background: var(--gold-panel); color: var(--ink);
+  border: 1px solid var(--gold-panel-border);
 }
 .mini-note svg{ width: 18px; height: 18px; color: var(--gold-ink); flex-shrink: 0; margin-top: 1px; }
 .mini-note p{ font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
@@ -391,7 +397,7 @@ input:focus{ outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px col
   position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
 }
 .score-num{ font-family: var(--font-display); font-size: 2.6rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-.score-badge{ font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; background: var(--gold); color: var(--gold-ink); background: color-mix(in srgb, var(--gold) 22%, transparent); }
+.score-badge{ font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; background: var(--gold-panel); color: var(--gold-ink); }
 
 .result-stats{ display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 24px; }
 .stat-tile{
@@ -449,7 +455,7 @@ input:focus{ outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px col
 .dash-table td:nth-child(2), .dash-table td:nth-child(5){ font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 .name-cell{ font-weight: 700; }
 .type-badge{ display: inline-flex; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
-.type-badge.pre{ background: color-mix(in srgb, var(--gold) 20%, transparent); color: var(--gold-ink); }
+.type-badge.pre{ background: var(--gold-panel); color: var(--gold-ink); }
 .type-badge.post{ background: color-mix(in srgb, var(--teal) 16%, transparent); color: var(--teal); }
 .dash-empty-row td{ text-align: center; color: var(--ink-faint); padding: 40px 16px; font-family: var(--font-body); }
 
