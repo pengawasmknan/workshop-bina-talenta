@@ -38,6 +38,17 @@ function jsonOutput_(obj) {
   );
 }
 
+// Memaksa Sheets menyimpan nilai sebagai teks murni (bukan angka), supaya
+// angka nol di depan (NIM, nomor WA) tidak hilang. setNumberFormat("@")
+// saja TIDAK cukup untuk nilai yang ditulis lewat appendRow/setValue —
+// awalan tanda kutip tunggal ini yang benar-benar memaksanya jadi teks,
+// sama seperti trik mengetik manual di Sheets. Tanda kutipnya sendiri
+// tidak ikut tersimpan/tampil.
+function asText_(value) {
+  if (value === null || value === undefined || value === "") return "";
+  return "'" + String(value);
+}
+
 function doPost(e) {
   try {
     var body = JSON.parse(e.postData.contents);
@@ -50,9 +61,9 @@ function doPost(e) {
       entry.waktu || new Date().toISOString(),
       entry.nama || "",
       entry.email || "",
-      entry.nim || "",
+      asText_(entry.nim),
       entry.prodi || "",
-      entry.wa || "",
+      asText_(entry.wa),
       entry.tipe || "",
       entry.skor != null ? entry.skor : "",
       entry.total != null ? entry.total : "",
