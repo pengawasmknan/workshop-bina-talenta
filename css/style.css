@@ -1,27 +1,28 @@
 /* ===================================================================
    Bina Talenta Test — design tokens
    Vibe: Editorial Luxury meets civic-institutional trust.
-   Palette pulls from the workshop identity (gold field, deep teal,
-   coral highlight) reframed as an achievement / "Talenta Emas" system.
+   Palette: dominant Forsythia gold, grounded by Oceanic Noir ink,
+   with Nocturnal Expedition teal and Deep Saffron orange as
+   complementary accents (client-supplied palette).
    =================================================================== */
 
 :root{
-  --bg: #FBF6EA;
-  --bg-soft: #F4EDDC;
+  --bg: #F1F6F4;
+  --bg-soft: #D9EBE2;
   --surface: #FFFFFF;
-  --surface-2: #FFFDF7;
-  --ink: #17313A;
-  --ink-soft: #55707A;
-  --ink-faint: #8B9FA6;
-  --line: rgba(23,49,58,0.10);
-  --line-strong: rgba(23,49,58,0.16);
+  --surface-2: #F7FBFA;
+  --ink: #172B36;
+  --ink-soft: #4C6672;
+  --ink-faint: #8A9CA3;
+  --line: rgba(23,43,54,0.10);
+  --line-strong: rgba(23,43,54,0.16);
 
-  --teal: #0E5C68;
-  --teal-ink: #0A4750;
-  --gold: #EFA332;
-  --gold-ink: #B97417;
-  --coral: #E4573F;
-  --coral-ink: #B93F2B;
+  --teal: #114C5A;
+  --teal-ink: #0B333D;
+  --gold: #FFC801;
+  --gold-ink: #6B4B00;
+  --coral: #FF9932;
+  --coral-ink: #A85400;
   --mint: #2E9E6E;
   --mint-bg: #E6F4EC;
   --rose: #D94F63;
@@ -43,22 +44,22 @@
 
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg: #0D2126;
-    --bg-soft: #102A30;
-    --surface: #133139;
-    --surface-2: #163740;
-    --ink: #F3EFE2;
-    --ink-soft: #B7CBCE;
-    --ink-faint: #7E979C;
-    --line: rgba(243,239,226,0.10);
-    --line-strong: rgba(243,239,226,0.18);
+    --bg: #0F1E23;
+    --bg-soft: #152A30;
+    --surface: #172B36;
+    --surface-2: #1D3540;
+    --ink: #F1F6F4;
+    --ink-soft: #B7C9CE;
+    --ink-faint: #7C9298;
+    --line: rgba(241,246,244,0.10);
+    --line-strong: rgba(241,246,244,0.18);
 
     --teal: #4FB6C4;
     --teal-ink: #BFE8ED;
-    --gold: #F4B851;
-    --gold-ink: #FFDDA0;
-    --coral: #F0806A;
-    --coral-ink: #FFC9BB;
+    --gold: #FFC801;
+    --gold-ink: #FFE28A;
+    --coral: #FF9932;
+    --coral-ink: #FFD3A0;
     --mint: #59C695;
     --mint-bg: rgba(46,158,110,0.16);
     --rose: #F0879A;
@@ -71,22 +72,22 @@
   }
 }
 :root[data-theme="dark"]{
-  --bg: #0D2126;
-  --bg-soft: #102A30;
-  --surface: #133139;
-  --surface-2: #163740;
-  --ink: #F3EFE2;
-  --ink-soft: #B7CBCE;
-  --ink-faint: #7E979C;
-  --line: rgba(243,239,226,0.10);
-  --line-strong: rgba(243,239,226,0.18);
+  --bg: #0F1E23;
+  --bg-soft: #152A30;
+  --surface: #172B36;
+  --surface-2: #1D3540;
+  --ink: #F1F6F4;
+  --ink-soft: #B7C9CE;
+  --ink-faint: #7C9298;
+  --line: rgba(241,246,244,0.10);
+  --line-strong: rgba(241,246,244,0.18);
 
   --teal: #4FB6C4;
   --teal-ink: #BFE8ED;
-  --gold: #F4B851;
-  --gold-ink: #FFDDA0;
-  --coral: #F0806A;
-  --coral-ink: #FFC9BB;
+  --gold: #FFC801;
+  --gold-ink: #FFE28A;
+  --coral: #FF9932;
+  --coral-ink: #FFD3A0;
   --mint: #59C695;
   --mint-bg: rgba(46,158,110,0.16);
   --rose: #F0879A;
@@ -149,15 +150,15 @@ canvas#confetti{
   background: none; border: none; cursor: pointer; padding: 4px;
   color: var(--ink);
 }
-.brand-mark{
-  display: grid; place-items: center;
-  width: 34px; height: 34px; border-radius: 11px;
-  background: linear-gradient(155deg, var(--teal), var(--teal-ink));
-  color: #FFF7E6;
-  font-family: var(--font-display); font-weight: 700; font-size: 14px;
-  box-shadow: var(--inset-hi), 0 6px 14px -6px rgba(14,92,104,0.5);
+.brand-logos{
+  display: flex; align-items: center; gap: 7px;
+  padding: 5px 10px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  box-shadow: var(--inset-hi), var(--shadow-soft);
 }
+.brand-logo{ width: 22px; height: 22px; object-fit: contain; display: block; flex-shrink: 0; }
 .brand-text{ font-weight: 700; letter-spacing: -0.01em; font-size: 15px; }
+@media (max-width: 480px){ .brand-text{ display: none; } }
 .topnav-actions{ display: flex; align-items: center; gap: 6px; }
 .icon-btn{
   display: grid; place-items: center;
@@ -296,13 +297,13 @@ input:focus{ outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px col
 .btn-primary{
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   padding: 13px 10px 13px 22px; border-radius: 999px; border: none; cursor: pointer;
-  background: var(--teal); color: #FFFBF0; font-weight: 700; font-size: 15px;
+  background: var(--gold); color: var(--ink); font-weight: 700; font-size: 15px;
   transition: transform 480ms var(--ease-spring), box-shadow 480ms var(--ease-spring), background 300ms;
-  box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--teal) 60%, transparent);
+  box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--gold) 65%, transparent);
 }
-.btn-primary .cta-arrow-wrap{ background: rgba(255,255,255,0.16); color: #fff; }
+.btn-primary .cta-arrow-wrap{ background: color-mix(in srgb, var(--ink) 12%, transparent); color: var(--ink); }
 .btn-primary:hover:not(:disabled){ transform: translateY(-2px); }
-.btn-primary:hover:not(:disabled) .cta-arrow-wrap{ transform: translate(2px,-1px) scale(1.06); }
+.btn-primary:hover:not(:disabled) .cta-arrow-wrap{ transform: translate(2px,-1px) scale(1.06); background: var(--ink); color: var(--gold); }
 .btn-primary:active:not(:disabled){ transform: scale(0.98); }
 .btn-primary:disabled{ opacity: 0.4; cursor: not-allowed; box-shadow: none; }
 .btn-block{ width: 100%; padding-left: 0; justify-content: center; }
