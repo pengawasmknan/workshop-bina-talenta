@@ -12,7 +12,7 @@ var PANITIA_PASSWORD = "BinaTalenta2026";
 
 var SHEET_NAME = "Responses";
 var HEADERS = [
-  "Waktu", "Nama", "NIM", "Prodi", "WhatsApp",
+  "Waktu", "Nama", "Email", "NIM", "Prodi", "WhatsApp",
   "Tipe", "Skor", "Total", "Persentase", "DurasiDetik",
 ];
 
@@ -24,11 +24,11 @@ function getSheet_() {
     sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
   }
-  // NIM (kolom C) & WhatsApp (kolom E) dipaksa jadi teks polos supaya
+  // NIM (kolom D) & WhatsApp (kolom F) dipaksa jadi teks polos supaya
   // angka nol di depan (mis. NIM/nomor HP yang diawali 0) tidak hilang
   // karena dianggap angka oleh Google Sheets.
-  sheet.getRange("C:C").setNumberFormat("@");
-  sheet.getRange("E:E").setNumberFormat("@");
+  sheet.getRange("D:D").setNumberFormat("@");
+  sheet.getRange("F:F").setNumberFormat("@");
   return sheet;
 }
 
@@ -49,6 +49,7 @@ function doPost(e) {
     sheet.appendRow([
       entry.waktu || new Date().toISOString(),
       entry.nama || "",
+      entry.email || "",
       entry.nim || "",
       entry.prodi || "",
       entry.wa || "",
@@ -85,14 +86,15 @@ function doGet(e) {
       return {
         waktu: row[0],
         nama: row[1],
-        nim: row[2],
-        prodi: row[3],
-        wa: row[4],
-        tipe: row[5],
-        skor: row[6],
-        total: row[7],
-        persentase: row[8],
-        durasiDetik: row[9],
+        email: row[2],
+        nim: row[3],
+        prodi: row[4],
+        wa: row[5],
+        tipe: row[6],
+        skor: row[7],
+        total: row[8],
+        persentase: row[9],
+        durasiDetik: row[10],
       };
     });
 

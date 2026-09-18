@@ -105,12 +105,20 @@
   $("#identity-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const nama = $("#f-nama").value.trim();
+    const email = $("#f-email").value.trim();
     const nim = $("#f-nim").value.trim();
     const prodi = $("#f-prodi").value.trim();
     const wa = $("#f-wa").value.trim();
-    if (!nama || !nim || !prodi) return;
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!nama || !emailValid || !nim || !prodi) {
+      if (!emailValid && email) $("#f-email").setCustomValidity("Format email tidak valid.");
+      else $("#f-email").setCustomValidity("");
+      $("#identity-form").reportValidity();
+      return;
+    }
+    $("#f-email").setCustomValidity("");
 
-    state.participant = { nama, nim, prodi, wa };
+    state.participant = { nama, email, nim, prodi, wa };
     state.questions = prepareQuestions(QUESTION_BANK[state.testType]);
     state.index = 0;
     state.answers = new Array(state.questions.length).fill(-1);
@@ -264,6 +272,7 @@
     $("#result-sync").textContent = "Menyimpan hasil…";
     const entry = {
       nama: state.participant.nama,
+      email: state.participant.email,
       nim: state.participant.nim,
       prodi: state.participant.prodi,
       wa: state.participant.wa || "",
@@ -496,8 +505,8 @@
 
   $("#btn-dash-export").addEventListener("click", () => {
     const list = getFilteredSorted();
-    const header = ["Nama", "NIM", "Prodi", "WhatsApp", "Tipe", "Skor", "Total", "Persentase", "DurasiDetik", "Waktu"];
-    const rows = list.map((d) => [d.nama, d.nim, d.prodi, d.wa || "", d.tipe, d.skor, d.total, d.persentase, d.durasiDetik, d.waktu]);
+    const header = ["Nama", "Email", "NIM", "Prodi", "WhatsApp", "Tipe", "Skor", "Total", "Persentase", "DurasiDetik", "Waktu"];
+    const rows = list.map((d) => [d.nama, d.email || "", d.nim, d.prodi, d.wa || "", d.tipe, d.skor, d.total, d.persentase, d.durasiDetik, d.waktu]);
     const csv = [header, ...rows]
       .map((row) => row.map((v) => `"${String(v == null ? "" : v).replace(/"/g, '""')}"`).join(","))
       .join("\r\n");

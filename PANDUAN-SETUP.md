@@ -47,6 +47,30 @@ Karena situs ini murni HTML/CSS/JS tanpa proses build, bisa langsung:
 
 Klik **Login Panitia** di pojok kanan atas → masukkan kode akses (`CONFIG.PANITIA_PASSWORD`, default `BinaTalenta2026`, **segera ganti** sebelum acara). Dashboard menampilkan rata-rata skor, filter pre/post, pencarian nama/NIM, dan tombol ekspor CSV.
 
+## 5. Kalau sudah pernah pakai versi lama Code.gs (sebelum ada kolom Email)
+
+Sheet "Responses" yang sudah dibuat sebelumnya masih pakai urutan kolom lama (tanpa Email) dan tidak otomatis berubah cuma karena Code.gs di-update. Supaya rapi:
+
+1. Buka spreadsheet "Bina Talenta - Hasil Test" → tab **Responses**
+2. Hapus seluruh isi tab itu (klik kanan nama tab → **Delete sheet**), atau kalau belum ada data penting, cukup hapus semua baris
+3. Deploy ulang `Code.gs` versi terbaru (lihat langkah redeploy di bagian 2)
+4. Coba isi satu pre-test dari website — sheet "Responses" akan otomatis dibuat ulang dengan header baru: `Waktu, Nama, Email, NIM, Prodi, WhatsApp, Tipe, Skor, Total, Persentase, DurasiDetik`
+
+## 6. Bikin sertifikat lewat Autocrat (khusus peserta yang isi Post-Test)
+
+Supaya nama tidak dobel dan pre-test tidak ikut kebawa ke daftar sertifikat, buat tab baru di spreadsheet "Bina Talenta - Hasil Test":
+
+1. Klik **+** di pojok kiri bawah untuk tambah sheet baru, beri nama **Sertifikat**
+2. Di sel **A1** ketik `Nama`, di **B1** ketik `Email`
+3. Di sel **A2**, tempel formula ini (satu formula saja, hasilnya otomatis "tumpah" ke bawah):
+   ```
+   =UNIQUE(FILTER({Responses!B2:B, Responses!C2:C}, Responses!G2:G="post"))
+   ```
+   Formula ini otomatis: (a) hanya mengambil baris dengan Tipe = **post** (pre-test tidak ikut), dan (b) membuang nama+email yang persis sama kalau ada yang submit post-test dua kali.
+4. Di Autocrat, pilih tab **Sertifikat** ini sebagai sumber data (bukan tab Responses), lalu petakan kolom `Nama` dan `Email` ke template sertifikat & pengiriman email.
+
+Kalau ternyata ada peserta yang mengisi email berbeda antara pre-test dan post-test (misal typo), yang muncul di tab Sertifikat adalah email dari submission **post-test**-nya — karena itu yang dipakai buat filter.
+
 ## Catatan keamanan
 
 Kode akses panitia ini bersifat sederhana (bukan sistem akun berlapis) — cukup untuk kebutuhan internal workshop satu hari. Jangan gunakan kode yang sama dengan password penting lain, dan ganti kodenya setelah acara selesai bila proyek ini dipakai ulang.
