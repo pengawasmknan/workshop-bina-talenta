@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bina Talenta Test</title>
+<meta name="description" content="Pre-Test dan Post-Test Workshop Bina Talenta — FISIP Universitas Lampung" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏅</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="noise" aria-hidden="true"></div>
+
+<header class="topnav">
+  <button class="brand" id="btn-logo" type="button" aria-label="Kembali ke beranda">
+    <span class="brand-mark">BT</span>
+    <span class="brand-text">Bina&nbsp;Talenta</span>
+  </button>
+  <div class="topnav-actions">
+    <button class="icon-btn" id="btn-theme" type="button" aria-label="Ganti tema terang/gelap" title="Ganti tema">
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+    <button class="link-ghost" id="btn-panitia-entry" type="button">Login Panitia</button>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- ============ LANDING ============ -->
+  <section class="screen screen-landing" id="screen-landing">
+    <div class="landing-grid">
+      <div class="landing-copy">
+        <p class="eyebrow">Workshop Bina Talenta &middot; FISIP Universitas Lampung</p>
+        <h1 class="display-xl">Ukur talentamu.<br>Rayakan progresmu.</h1>
+        <p class="lede">Sebelum dan sesudah sesi hari ini, luangkan beberapa menit untuk pre-test &amp; post-test singkat. Santai, seru, dan langsung kelihatan hasilnya &mdash; skormu otomatis tercatat untuk panitia.</p>
+        <div class="event-strip">
+          <div class="event-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>
+            <span>Sabtu, 19 Sep 2026</span>
+          </div>
+          <div class="event-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <span>13.00&ndash;16.00 WIB</span>
+          </div>
+          <div class="event-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+            <span>Aula Gedung D 3.1 FISIP Unila</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-cards">
+        <button class="test-card test-card--pre" id="card-pre" type="button">
+          <div class="test-card-inner">
+            <span class="test-tag">Sebelum Sesi</span>
+            <h2>Pre&#8209;Test</h2>
+            <p>Cek pemahaman awalmu sebelum materi dimulai.</p>
+            <span class="test-cta">
+              Mulai Pre-Test
+              <span class="cta-arrow-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </div>
+        </button>
+
+        <button class="test-card test-card--post" id="card-post" type="button">
+          <div class="test-card-inner">
+            <span class="test-tag">Setelah Sesi</span>
+            <h2>Post&#8209;Test</h2>
+            <p>Refleksikan apa yang sudah kamu pelajari hari ini.</p>
+            <span class="test-cta">
+              Mulai Post-Test
+              <span class="cta-arrow-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+            </span>
+          </div>
+        </button>
+
+        <div class="mini-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 17.5v-5M12 8.2h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <p>Urutan soal dan pilihan jawaban <strong>diacak otomatis</strong> setiap kali dikerjakan &mdash; kerjakan sesuai pemahamanmu sendiri.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ IDENTITY FORM ============ -->
+  <section class="screen screen-form" id="screen-form" hidden>
+    <div class="panel-narrow">
+      <button class="back-link" data-back="screen-landing" type="button">&larr; Kembali</button>
+      <span class="pill pill-mode" id="form-mode-pill">Pre-Test</span>
+      <h2 class="display-md">Kenalan dulu, yuk 👋</h2>
+      <p class="lede-sm">Data ini dipakai panitia untuk mencatat skormu &mdash; isi dengan benar ya.</p>
+
+      <form id="identity-form" novalidate>
+        <label class="field">
+          <span>Nama Lengkap</span>
+          <input type="text" id="f-nama" name="nama" placeholder="cth. Andi Pratama" required autocomplete="name" />
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>NIM</span>
+            <input type="text" id="f-nim" name="nim" placeholder="cth. 2317051012" required inputmode="numeric" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span>Program Studi</span>
+            <input type="text" id="f-prodi" name="prodi" placeholder="cth. Ilmu Pemerintahan" required autocomplete="off" />
+          </label>
+        </div>
+        <label class="field">
+          <span>No. WhatsApp <em>(opsional)</em></span>
+          <input type="tel" id="f-wa" name="wa" placeholder="cth. 08123456789" autocomplete="tel" />
+        </label>
+
+        <button class="btn-primary btn-block" type="submit">
+          <span>Mulai Mengerjakan</span>
+          <span class="cta-arrow-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="screen screen-quiz" id="screen-quiz" hidden>
+    <div class="quiz-shell">
+      <div class="quiz-head">
+        <div class="quiz-progress" id="quiz-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="quiz-meta">
+          <span class="quiz-count"><span id="q-current">1</span><span class="quiz-count-of">/<span id="q-total">8</span></span></span>
+          <span class="quiz-timer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5M9.5 3h5"/></svg>
+            <span id="q-timer">00:00</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-card-inner">
+          <p class="question-tag" id="q-tag">Soal Contoh</p>
+          <h2 class="question-text" id="q-text">Memuat soal&hellip;</h2>
+          <div class="options" id="q-options"></div>
+        </div>
+      </div>
+
+      <div class="quiz-foot">
+        <p class="quiz-hint" id="quiz-hint">Pilih salah satu jawaban di atas.</p>
+        <button class="btn-primary" id="btn-next" type="button" disabled>
+          <span id="btn-next-label">Lanjut</span>
+          <span class="cta-arrow-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="screen screen-result" id="screen-result" hidden>
+    <div class="result-shell">
+      <span class="pill pill-mode" id="result-mode-pill">Pre-Test</span>
+      <p class="result-eyebrow">Selesai! Ini hasilmu&hellip;</p>
+      <div class="score-ring-wrap">
+        <svg class="score-ring" viewBox="0 0 200 200">
+          <circle class="score-ring-track" cx="100" cy="100" r="86" />
+          <circle class="score-ring-fill" id="score-ring-fill" cx="100" cy="100" r="86" />
+        </svg>
+        <div class="score-ring-center">
+          <span class="score-num" id="score-percent">0%</span>
+          <span class="score-badge" id="score-badge">&nbsp;</span>
+        </div>
+      </div>
+
+      <div class="result-stats">
+        <div class="stat-tile">
+          <span class="stat-value" id="stat-correct">0/0</span>
+          <span class="stat-label">Jawaban Benar</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-value" id="stat-time">00:00</span>
+          <span class="stat-label">Waktu Pengerjaan</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-value" id="stat-name">&mdash;</span>
+          <span class="stat-label">Peserta</span>
+        </div>
+      </div>
+
+      <p class="result-message" id="result-message">Kerja bagus!</p>
+      <p class="result-sync" id="result-sync">Menyimpan hasil&hellip;</p>
+
+      <div class="result-actions">
+        <button class="btn-secondary" id="btn-result-home" type="button">Kembali ke Beranda</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PANITIA LOGIN ============ -->
+  <section class="screen screen-panitia-login" id="screen-panitia-login" hidden>
+    <div class="panel-narrow panel-center">
+      <button class="back-link" data-back="screen-landing" type="button">&larr; Kembali</button>
+      <span class="pill pill-panitia">Akses Panitia</span>
+      <h2 class="display-md">Masuk untuk lihat rekap skor</h2>
+      <p class="lede-sm">Masukkan kode akses yang diberikan koordinator acara.</p>
+      <form id="panitia-login-form" novalidate>
+        <label class="field">
+          <span>Kode Akses</span>
+          <input type="password" id="f-panitia-code" name="code" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required autocomplete="off" />
+        </label>
+        <p class="field-error" id="panitia-error" hidden>Kode akses salah. Coba lagi.</p>
+        <button class="btn-primary btn-block" type="submit">
+          <span>Masuk</span>
+          <span class="cta-arrow-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ PANITIA DASHBOARD ============ -->
+  <section class="screen screen-dashboard" id="screen-dashboard" hidden>
+    <div class="dash-shell">
+      <div class="dash-head">
+        <div>
+          <p class="eyebrow">Panel Panitia</p>
+          <h2 class="display-md">Rekap Skor Peserta</h2>
+        </div>
+        <div class="dash-head-actions">
+          <span class="pill pill-source" id="dash-source">&nbsp;</span>
+          <button class="icon-btn" id="btn-dash-refresh" type="button" title="Muat ulang" aria-label="Muat ulang">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"/></svg>
+          </button>
+          <button class="btn-secondary btn-sm" id="btn-dash-export" type="button">Ekspor CSV</button>
+          <button class="link-ghost" id="btn-dash-logout" type="button">Keluar</button>
+        </div>
+      </div>
+
+      <div class="dash-tiles">
+        <div class="dash-tile">
+          <span class="dash-tile-value" id="tile-total">0</span>
+          <span class="dash-tile-label">Total Pengisian</span>
+        </div>
+        <div class="dash-tile">
+          <span class="dash-tile-value" id="tile-avg-pre">&mdash;</span>
+          <span class="dash-tile-label">Rata-rata Pre-Test</span>
+        </div>
+        <div class="dash-tile">
+          <span class="dash-tile-value" id="tile-avg-post">&mdash;</span>
+          <span class="dash-tile-label">Rata-rata Post-Test</span>
+        </div>
+        <div class="dash-tile dash-tile--accent">
+          <span class="dash-tile-value" id="tile-delta">&mdash;</span>
+          <span class="dash-tile-label">Peningkatan Rata-rata</span>
+        </div>
+      </div>
+
+      <div class="dash-controls">
+        <div class="segmented" id="dash-filter" role="tablist">
+          <button class="segmented-btn is-active" data-filter="all" type="button">Semua</button>
+          <button class="segmented-btn" data-filter="pre" type="button">Pre-Test</button>
+          <button class="segmented-btn" data-filter="post" type="button">Post-Test</button>
+        </div>
+        <input class="search-input" id="dash-search" type="search" placeholder="Cari nama atau NIM&hellip;" />
+        <select class="sort-select" id="dash-sort">
+          <option value="time-desc">Terbaru</option>
+          <option value="time-asc">Terlama</option>
+          <option value="score-desc">Skor Tertinggi</option>
+          <option value="score-asc">Skor Terendah</option>
+        </select>
+      </div>
+
+      <div class="dash-table-wrap">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Peserta</th>
+              <th>NIM</th>
+              <th>Prodi</th>
+              <th>Tipe</th>
+              <th>Skor</th>
+              <th>Waktu</th>
+            </tr>
+          </thead>
+          <tbody id="dash-tbody">
+            <tr class="dash-empty-row"><td colspan="6">Memuat data&hellip;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script src="js/config.js"></script>
+<script src="js/questions.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

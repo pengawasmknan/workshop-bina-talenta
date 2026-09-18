@@ -1,0 +1,16 @@
+// ============================================================
+// KONFIGURASI — panitia edit di sini saja, tidak perlu sentuh file lain.
+// ============================================================
+const CONFIG = {
+  // Tempel URL Web App Google Apps Script di sini setelah deploy
+  // (lihat PANDUAN-SETUP.md). Kosongkan untuk mode lokal (demo only,
+  // skor hanya tersimpan di browser perangkat masing-masing).
+  API_URL: "",
+
+  // Kode akses yang dipakai panitia untuk masuk ke dashboard skor.
+  // HARUS SAMA PERSIS dengan PANITIA_PASSWORD di apps-script/Code.gs.
+  PANITIA_PASSWORD: "BinaTalenta2026",
+
+  // Nama acara, dipakai di beberapa tempat kecil (judul dokumen, ekspor CSV).
+  EVENT_NAME: "Workshop Bina Talenta",
+};
