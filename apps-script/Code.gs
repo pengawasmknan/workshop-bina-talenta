@@ -24,6 +24,11 @@ function getSheet_() {
     sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
   }
+  // NIM (kolom C) & WhatsApp (kolom E) dipaksa jadi teks polos supaya
+  // angka nol di depan (mis. NIM/nomor HP yang diawali 0) tidak hilang
+  // karena dianggap angka oleh Google Sheets.
+  sheet.getRange("C:C").setNumberFormat("@");
+  sheet.getRange("E:E").setNumberFormat("@");
   return sheet;
 }
 

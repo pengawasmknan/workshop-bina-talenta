@@ -193,8 +193,12 @@ canvas#confetti{
 }
 
 .eyebrow{
-  font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--teal); margin: 0 0 14px;
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-ink); margin: 0 0 14px;
+  padding: 6px 14px; border-radius: 999px;
+  background: color-mix(in srgb, var(--gold) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
 }
 .display-xl{ font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.02; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
 .display-md{ font-size: clamp(1.6rem, 3.4vw, 2.2rem); line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; margin: 14px 0 8px; }
@@ -239,30 +243,28 @@ canvas#confetti{
   box-shadow: var(--inset-hi);
   position: relative; overflow: hidden;
 }
-.test-card--pre .test-card-inner{ background: linear-gradient(155deg, var(--surface) 60%, color-mix(in srgb, var(--gold) 14%, var(--surface))); }
-.test-card--post .test-card-inner{ background: linear-gradient(155deg, var(--surface) 60%, color-mix(in srgb, var(--teal) 12%, var(--surface))); }
+.test-card--pre .test-card-inner{ background: linear-gradient(155deg, var(--surface) 45%, color-mix(in srgb, var(--gold) 26%, var(--surface))); }
+.test-card--post .test-card-inner{ background: linear-gradient(155deg, var(--surface) 55%, color-mix(in srgb, var(--gold) 16%, var(--surface))); }
 .test-tag{ font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
 .test-card h2{ font-size: 1.7rem; margin: 6px 0 8px; font-weight: 600; }
 .test-card p{ font-size: 0.92rem; color: var(--ink-soft); max-width: 32ch; }
-.test-cta{ display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font-weight: 700; font-size: 0.9rem; color: var(--teal-ink); }
-:root[data-theme="dark"] .test-cta{ color: var(--teal); }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .test-cta{ color: var(--teal); } }
+.test-cta{ display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font-weight: 700; font-size: 0.9rem; color: var(--gold-ink); }
 
 .cta-arrow-wrap{
   display: grid; place-items: center; width: 30px; height: 30px; border-radius: 999px;
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  background: color-mix(in srgb, var(--gold) 20%, transparent);
   transition: transform 480ms var(--ease-spring), background 300ms;
 }
 .cta-arrow-wrap svg{ width: 15px; height: 15px; }
-.test-card:hover .cta-arrow-wrap{ transform: translate(3px,-2px) scale(1.06); background: var(--coral); color: #fff; }
+.test-card:hover .cta-arrow-wrap{ transform: translate(3px,-2px) scale(1.06); background: var(--gold); color: var(--ink); }
 
 .mini-note{
   display: flex; gap: 10px; align-items: flex-start;
   padding: 14px 16px; border-radius: 1.1rem;
-  background: var(--mint-bg); color: var(--ink);
-  border: 1px solid color-mix(in srgb, var(--mint) 30%, transparent);
+  background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--ink);
+  border: 1px solid color-mix(in srgb, var(--gold) 38%, transparent);
 }
-.mini-note svg{ width: 18px; height: 18px; color: var(--mint); flex-shrink: 0; margin-top: 1px; }
+.mini-note svg{ width: 18px; height: 18px; color: var(--gold-ink); flex-shrink: 0; margin-top: 1px; }
 .mini-note p{ font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
 .mini-note strong{ color: var(--ink); }
 

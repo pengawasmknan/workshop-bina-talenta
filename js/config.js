@@ -5,7 +5,7 @@ const CONFIG = {
   // Tempel URL Web App Google Apps Script di sini setelah deploy
   // (lihat PANDUAN-SETUP.md). Kosongkan untuk mode lokal (demo only,
   // skor hanya tersimpan di browser perangkat masing-masing).
-  API_URL: "",
+  API_URL: "https://script.google.com/macros/s/AKfycbz6Ar0db2DEisK2kgGOn_YAxY3WKJ4GBgg6DRXvYV8ZTcm0zW4jMsQc6jo4lVEjpA1GLg/exec",
 
   // Kode akses yang dipakai panitia untuk masuk ke dashboard skor.
   // HARUS SAMA PERSIS dengan PANITIA_PASSWORD di apps-script/Code.gs.
