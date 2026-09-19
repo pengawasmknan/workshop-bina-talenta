@@ -51,9 +51,9 @@ Klik **Login Panitia** di pojok kanan atas → masukkan kode akses (`CONFIG.PANI
 
 Otomatis menampilkan 3 peserta tercepat yang skornya **100% benar semua**, terpisah untuk Pre-Test dan Post-Test (pakai tab di pojok kanan kartu). Kalau satu peserta submit lebih dari sekali dengan skor 100%, yang dihitung cuma attempt tercepatnya — tidak dobel.
 
-### Buka/tutup akses Post-Test
+### Buka/tutup akses Pre-Test & Post-Test
 
-Saklar **"Akses Post-Test untuk Peserta"** di atas dashboard mengontrol apakah kartu Post-Test di halaman utama bisa diklik peserta atau tidak (kalau dimatikan, kartunya tetap kelihatan tapi terkunci dengan label "Menunggu dibuka panitia"). Cocok dipakai supaya peserta tidak mengerjakan Post-Test sebelum sesi workshop benar-benar dimulai/selesai. Status ini tersimpan di server (Apps Script), jadi berlaku untuk semua peserta sekaligus, bukan cuma di satu perangkat. **Perlu redeploy `Code.gs` versi terbaru dulu** (lihat langkah 2) supaya saklar ini berfungsi — kalau belum, Post-Test akan selalu tampil terbuka secara default.
+Ada dua saklar terpisah di atas dashboard — **"Akses Pre-Test untuk Peserta"** dan **"Akses Post-Test untuk Peserta"** — masing-masing mengontrol apakah kartu yang bersangkutan di halaman utama bisa diklik peserta atau tidak (kalau dimatikan, kartunya tetap kelihatan tapi terkunci dengan label "Menunggu dibuka panitia"). Cocok dipakai supaya peserta tidak mengerjakan Pre-Test sebelum panitia siap menerima, atau Post-Test sebelum sesi workshop benar-benar selesai. Status ini tersimpan di server (Apps Script) dan berlaku untuk semua peserta sekaligus, bukan cuma di satu perangkat. **Perlu redeploy `Code.gs` versi terbaru dulu** (lihat langkah 2) supaya kedua saklar ini berfungsi — kalau belum, Pre-Test dan Post-Test akan selalu tampil terbuka secara default.
 
 ## 5. Kalau sudah pernah pakai versi lama Code.gs (sebelum ada kolom Email)
 

@@ -102,27 +102,35 @@
     showScreen("form");
     $("#f-nama").focus();
   }
-  $("#card-pre").addEventListener("click", () => startFlow("pre"));
+  $("#card-pre").addEventListener("click", () => {
+    if (!testAccess.pre) return;
+    startFlow("pre");
+  });
   $("#card-post").addEventListener("click", () => {
-    if (!postTestEnabled) return;
+    if (!testAccess.post) return;
     startFlow("post");
   });
 
-  // ---------------- Post-Test lock (dikontrol panitia) ----------------
-  let postTestEnabled = true;
+  // ---------------- Kunci Pre-Test/Post-Test (dikontrol panitia) ----------------
+  const testAccess = { pre: true, post: true };
 
-  function applyPostTestLockUI() {
-    $("#card-post").classList.toggle("is-locked", !postTestEnabled);
-    $("#post-test-cta").hidden = !postTestEnabled;
-    $("#post-test-locked").hidden = postTestEnabled;
+  function applyTestLockUI() {
+    $("#card-pre").classList.toggle("is-locked", !testAccess.pre);
+    $("#pre-test-cta").hidden = !testAccess.pre;
+    $("#pre-test-locked").hidden = testAccess.pre;
+
+    $("#card-post").classList.toggle("is-locked", !testAccess.post);
+    $("#post-test-cta").hidden = !testAccess.post;
+    $("#post-test-locked").hidden = testAccess.post;
   }
 
-  async function refreshPostTestLock() {
-    const res = await Api.fetchPostTestStatus();
-    postTestEnabled = res.enabled;
-    applyPostTestLockUI();
+  async function refreshTestAccess() {
+    const res = await Api.fetchTestAccess();
+    testAccess.pre = res.pre;
+    testAccess.post = res.post;
+    applyTestLockUI();
   }
-  refreshPostTestLock();
+  refreshTestAccess();
 
   // ---------------- Identity form ----------------
   $("#identity-form").addEventListener("submit", (e) => {
@@ -437,36 +445,49 @@
       return;
     }
     dashData = res.data || [];
-    postTestEnabled = res.postTestEnabled !== false;
-    applyPostTestLockUI();
-    setToggleUI(postTestEnabled, false);
+    testAccess.pre = res.access.pre;
+    testAccess.post = res.access.post;
+    applyTestLockUI();
+    setAccessToggleUI("pre", testAccess.pre, false);
+    setAccessToggleUI("post", testAccess.post, false);
     renderDashboard();
   }
 
   $("#btn-dash-refresh").addEventListener("click", loadDashboard);
 
-  // ---------------- Toggle akses Post-Test (panitia) ----------------
-  const toggleBtn = $("#btn-posttest-toggle");
-  function setToggleUI(enabled, busy) {
-    toggleBtn.setAttribute("aria-checked", String(enabled));
-    toggleBtn.disabled = Boolean(busy);
-    $("#posttest-toggle-sub").textContent = busy
+  // ---------------- Toggle akses Pre-Test/Post-Test (panitia) ----------------
+  const accessToggles = {
+    pre: { btn: $("#btn-pretest-toggle"), sub: $("#pretest-toggle-sub"), label: "Pre-Test" },
+    post: { btn: $("#btn-posttest-toggle"), sub: $("#posttest-toggle-sub"), label: "Post-Test" },
+  };
+
+  function setAccessToggleUI(testType, enabled, busy) {
+    const t = accessToggles[testType];
+    t.btn.setAttribute("aria-checked", String(enabled));
+    t.btn.disabled = Boolean(busy);
+    t.sub.textContent = busy
       ? "Menyimpan…"
       : enabled
-      ? "Peserta bisa mulai Post-Test sekarang."
-      : "Post-Test terkunci untuk peserta sampai kamu buka.";
+      ? `Peserta bisa mulai ${t.label} sekarang.`
+      : `${t.label} terkunci untuk peserta sampai kamu buka.`;
   }
-  toggleBtn.addEventListener("click", async () => {
-    const next = toggleBtn.getAttribute("aria-checked") !== "true";
-    setToggleUI(next, true);
-    const res = await Api.setPostTestEnabled(panitiaPassword, next);
-    if (!res.ok) {
-      setToggleUI(!next, false); // gagal, kembalikan ke keadaan semula
-      return;
-    }
-    postTestEnabled = res.enabled;
-    applyPostTestLockUI();
-    setToggleUI(postTestEnabled, false);
+
+  Object.keys(accessToggles).forEach((testType) => {
+    accessToggles[testType].btn.addEventListener("click", async () => {
+      const btn = accessToggles[testType].btn;
+      const next = btn.getAttribute("aria-checked") !== "true";
+      setAccessToggleUI(testType, next, true);
+      const res = await Api.setTestEnabled(panitiaPassword, testType, next);
+      if (!res.ok) {
+        setAccessToggleUI(testType, !next, false); // gagal, kembalikan ke keadaan semula
+        return;
+      }
+      testAccess.pre = res.pre;
+      testAccess.post = res.post;
+      applyTestLockUI();
+      setAccessToggleUI("pre", testAccess.pre, false);
+      setAccessToggleUI("post", testAccess.post, false);
+    });
   });
 
   $("#dash-filter").addEventListener("click", (e) => {

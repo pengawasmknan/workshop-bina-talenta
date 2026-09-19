@@ -4,7 +4,8 @@
 // Cara pakai: lihat PANDUAN-SETUP.md di root folder proyek.
 // Script ini menulis setiap hasil pre/post-test ke satu Google
 // Sheet ("Responses"), menyediakan endpoint baca yang dijaga
-// kode akses panitia, dan menyimpan status buka/tutup Post-Test.
+// kode akses panitia, dan menyimpan status buka/tutup Pre-Test
+// & Post-Test secara terpisah.
 // ============================================================
 
 // HARUS SAMA PERSIS dengan CONFIG.PANITIA_PASSWORD di js/config.js
@@ -16,7 +17,13 @@ var HEADERS = [
   "Tipe", "Skor", "Total", "Persentase", "DurasiDetik",
 ];
 
-var POST_TEST_PROP_KEY = "postTestEnabled";
+// Nama properti tersimpan per jenis tes. Kunci "postTestEnabled" sengaja
+// dipertahankan (bukan "posttest") supaya status yang sudah di-set
+// panitia sebelumnya tidak ke-reset saat kode ini di-update.
+var ACCESS_PROP_KEYS = {
+  pre: "preTestEnabled",
+  post: "postTestEnabled",
+};
 
 function getSheet_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -52,10 +59,17 @@ function asText_(value) {
 }
 
 // Default TERBUKA kalau belum pernah di-set panitia sama sekali.
-function isPostTestEnabled_() {
-  var raw = PropertiesService.getScriptProperties().getProperty(POST_TEST_PROP_KEY);
+// `type` adalah "pre" atau "post".
+function isTestEnabled_(type) {
+  var key = ACCESS_PROP_KEYS[type];
+  if (!key) return true;
+  var raw = PropertiesService.getScriptProperties().getProperty(key);
   if (raw === null) return true;
   return raw === "true";
+}
+
+function accessStatus_() {
+  return { pre: isTestEnabled_("pre"), post: isTestEnabled_("post") };
 }
 
 function doPost(e) {
@@ -82,15 +96,15 @@ function doPost(e) {
       return jsonOutput_({ ok: true });
     }
 
-    if (body.action === "setPostTest") {
+    if (body.action === "setAccess") {
       if (body.password !== PANITIA_PASSWORD) {
         return jsonOutput_({ ok: false, error: "unauthorized" });
       }
-      PropertiesService.getScriptProperties().setProperty(
-        POST_TEST_PROP_KEY,
-        body.enabled ? "true" : "false"
-      );
-      return jsonOutput_({ ok: true, postTestEnabled: isPostTestEnabled_() });
+      var key = ACCESS_PROP_KEYS[body.testType];
+      if (!key) return jsonOutput_({ ok: false, error: "invalid_test_type" });
+      PropertiesService.getScriptProperties().setProperty(key, body.enabled ? "true" : "false");
+      var status = accessStatus_();
+      return jsonOutput_({ ok: true, pre: status.pre, post: status.post });
     }
 
     return jsonOutput_({ ok: false, error: "invalid_payload" });
@@ -103,9 +117,10 @@ function doGet(e) {
   var params = e.parameter || {};
 
   // Publik, tanpa kode akses — dipanggil dari halaman utama semua peserta
-  // untuk tahu apakah Post-Test sudah dibuka panitia.
+  // untuk tahu apakah Pre-Test/Post-Test sudah dibuka panitia.
   if (params.action === "status") {
-    return jsonOutput_({ ok: true, postTestEnabled: isPostTestEnabled_() });
+    var status = accessStatus_();
+    return jsonOutput_({ ok: true, pre: status.pre, post: status.post });
   }
 
   if (params.action !== "list") {
@@ -139,5 +154,6 @@ function doGet(e) {
       };
     });
 
-  return jsonOutput_({ ok: true, data: data, postTestEnabled: isPostTestEnabled_() });
+  var accessNow = accessStatus_();
+  return jsonOutput_({ ok: true, data: data, pre: accessNow.pre, post: accessNow.post });
 }

@@ -425,11 +425,13 @@ input:focus{ outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px col
 .dash-head{ display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
 .dash-head-actions{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
+.toggle-group{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
 .toggle-card{
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 16px 20px; border-radius: 1.3rem; background: var(--surface);
-  border: 1px solid var(--line); box-shadow: var(--shadow-soft); margin-bottom: 20px;
+  border: 1px solid var(--line); box-shadow: var(--shadow-soft);
 }
+@media (max-width: 640px){ .toggle-group{ grid-template-columns: 1fr; } }
 .toggle-card-title{ font-size: 14.5px; font-weight: 700; margin-bottom: 3px; }
 .toggle-card-sub{ font-size: 12.5px; color: var(--ink-faint); }
 .switch{

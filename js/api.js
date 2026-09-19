@@ -8,7 +8,10 @@
 // ============================================================
 
 const LOCAL_KEY = "binaTalenta.submissions.v1";
-const LOCAL_POSTTEST_KEY = "binaTalenta.postTestEnabled.v1";
+
+function localAccessKey(testType) {
+  return `binaTalenta.testEnabled.${testType}.v1`;
+}
 
 function readLocalSubmissions() {
   try {
@@ -26,6 +29,15 @@ function writeLocalSubmission(entry) {
     localStorage.setItem(LOCAL_KEY, JSON.stringify(list));
   } catch (err) {
     /* penyimpanan lokal tidak tersedia (mode privat dsb) — abaikan */
+  }
+}
+
+function readLocalAccess(testType) {
+  try {
+    const raw = localStorage.getItem(localAccessKey(testType));
+    return raw === null ? true : raw === "true";
+  } catch (err) {
+    return true;
   }
 }
 
@@ -60,12 +72,12 @@ const Api = {
   /** Ambil seluruh hasil untuk dashboard panitia. */
   async fetchResults(password) {
     if (!this.isRemote()) {
-      let enabled = true;
-      try {
-        const raw = localStorage.getItem(LOCAL_POSTTEST_KEY);
-        if (raw !== null) enabled = raw === "true";
-      } catch (err) {}
-      return { ok: true, mode: "local", data: readLocalSubmissions(), postTestEnabled: enabled };
+      return {
+        ok: true,
+        mode: "local",
+        data: readLocalSubmissions(),
+        access: { pre: readLocalAccess("pre"), post: readLocalAccess("post") },
+      };
     }
     try {
       const url = `${CONFIG.API_URL}?action=list&password=${encodeURIComponent(password)}`;
@@ -74,52 +86,53 @@ const Api = {
       if (!json || !json.ok) {
         return { ok: false, mode: "remote", error: json && json.error };
       }
-      return { ok: true, mode: "remote", data: json.data || [], postTestEnabled: json.postTestEnabled !== false };
+      return {
+        ok: true,
+        mode: "remote",
+        data: json.data || [],
+        access: { pre: json.pre !== false, post: json.post !== false },
+      };
     } catch (err) {
       return { ok: false, mode: "remote", error: String(err) };
     }
   },
 
   /** Dipanggil semua peserta di halaman utama (tanpa kode akses) untuk
-   *  tahu apakah Post-Test sudah dibuka panitia. Gagal terhubung ->
-   *  dianggap terbuka, supaya gangguan jaringan tidak mengunci semua
-   *  peserta dari post-test. */
-  async fetchPostTestStatus() {
+   *  tahu apakah Pre-Test/Post-Test sudah dibuka panitia. Gagal terhubung
+   *  -> dianggap terbuka, supaya gangguan jaringan tidak mengunci semua
+   *  peserta. */
+  async fetchTestAccess() {
     if (!this.isRemote()) {
-      try {
-        const raw = localStorage.getItem(LOCAL_POSTTEST_KEY);
-        return { ok: true, enabled: raw === null ? true : raw === "true" };
-      } catch (err) {
-        return { ok: true, enabled: true };
-      }
+      return { ok: true, pre: readLocalAccess("pre"), post: readLocalAccess("post") };
     }
     try {
       const res = await fetch(`${CONFIG.API_URL}?action=status`);
       const json = await res.json();
-      if (!json || !json.ok) return { ok: true, enabled: true };
-      return { ok: true, enabled: json.postTestEnabled !== false };
+      if (!json || !json.ok) return { ok: true, pre: true, post: true };
+      return { ok: true, pre: json.pre !== false, post: json.post !== false };
     } catch (err) {
-      return { ok: true, enabled: true };
+      return { ok: true, pre: true, post: true };
     }
   },
 
-  /** Panitia menyalakan/mematikan akses Post-Test untuk semua peserta. */
-  async setPostTestEnabled(password, enabled) {
+  /** Panitia menyalakan/mematikan akses Pre-Test atau Post-Test untuk
+   *  semua peserta. `testType` adalah "pre" atau "post". */
+  async setTestEnabled(password, testType, enabled) {
     if (!this.isRemote()) {
       try {
-        localStorage.setItem(LOCAL_POSTTEST_KEY, enabled ? "true" : "false");
+        localStorage.setItem(localAccessKey(testType), enabled ? "true" : "false");
       } catch (err) {}
-      return { ok: true, enabled };
+      return { ok: true, pre: readLocalAccess("pre"), post: readLocalAccess("post") };
     }
     try {
       const res = await fetch(CONFIG.API_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ action: "setPostTest", password, enabled }),
+        body: JSON.stringify({ action: "setAccess", password, testType, enabled }),
       });
       const json = await res.json();
       if (!json || !json.ok) return { ok: false, error: json && json.error };
-      return { ok: true, enabled: json.postTestEnabled };
+      return { ok: true, pre: json.pre !== false, post: json.post !== false };
     } catch (err) {
       return { ok: false, error: String(err) };
     }
