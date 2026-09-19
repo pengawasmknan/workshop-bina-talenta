@@ -76,18 +76,22 @@
     return a;
   }
 
-  /** Setiap peserta mendapat urutan soal DAN urutan pilihan jawaban
-   *  yang diacak ulang — supaya peserta yang duduk berdekatan tidak
-   *  bisa saling mencontek dari posisi jawaban di layar. */
+  /** Setiap peserta mendapat SUBSET soal (CONFIG.QUESTIONS_PER_PARTICIPANT
+   *  dari total bank) DAN urutan pilihan jawaban yang diacak ulang —
+   *  supaya peserta yang duduk berdekatan tidak bisa saling mencontek,
+   *  dan tidak semua orang mengerjakan soal yang identik. */
   function prepareQuestions(bank) {
-    return shuffle(bank).map((q) => {
-      const order = shuffle(q.options.map((_, i) => i));
-      return {
-        text: q.text,
-        options: order.map((i) => q.options[i]),
-        correct: order.indexOf(q.correct),
-      };
-    });
+    const count = Math.min(CONFIG.QUESTIONS_PER_PARTICIPANT || bank.length, bank.length);
+    return shuffle(bank)
+      .slice(0, count)
+      .map((q) => {
+        const order = shuffle(q.options.map((_, i) => i));
+        return {
+          text: q.text,
+          options: order.map((i) => q.options[i]),
+          correct: order.indexOf(q.correct),
+        };
+      });
   }
 
   // ---------------- Landing -> pick test ----------------

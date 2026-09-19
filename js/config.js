@@ -13,4 +13,10 @@ const CONFIG = {
 
   // Nama acara, dipakai di beberapa tempat kecil (judul dokumen, ekspor CSV).
   EVENT_NAME: "Workshop Bina Talenta",
+
+  // Jumlah soal yang ditampilkan ke tiap peserta, diambil acak dari bank
+  // soal (js/questions.js) yang boleh berisi lebih banyak soal daripada
+  // ini. Contoh: bank berisi 8 soal, angka ini 5 -> tiap peserta cuma
+  // dapat 5 soal acak dari 8, tidak ada yang diulang dalam satu sesi.
+  QUESTIONS_PER_PARTICIPANT: 5,
 };

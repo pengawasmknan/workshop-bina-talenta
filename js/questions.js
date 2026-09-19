@@ -1,114 +1,158 @@
 // ============================================================
 // BANK SOAL — Workshop Bina Talenta Riset dan Pengembangan
-// Sumber: Soal_Pretest_Posttest_Workshop_Bina_Talenta.docx (panitia)
+// Sumber: bank_soal.json (panitia, 19 Sep 2026)
 // Struktur tiap soal:
 //   { text: "...", options: ["...","...","...","..."], correct: 0 }
 // `correct` adalah index jawaban benar (0 = pilihan pertama, dst).
-// Urutan soal & urutan pilihan otomatis DIACAK setiap kali seorang
-// peserta memulai (lihat prepareQuestions() di js/app.js) — array di
-// bawah ini cukup diedit apa adanya, tidak perlu disusun acak manual.
+//
+// Bank ini berisi 8 soal per sesi, tapi tiap peserta HANYA menerima 5
+// soal acak dari 8 itu (lihat CONFIG.QUESTIONS_PER_PARTICIPANT di
+// js/config.js) — urutan soal & urutan pilihan jawaban juga diacak
+// ulang setiap kali seorang peserta memulai (lihat prepareQuestions()
+// di js/app.js). Array di bawah ini cukup diedit apa adanya sesuai
+// urutan bank, tidak perlu disusun acak manual.
 // ============================================================
 const QUESTION_BANK = {
   pre: [
     {
-      text: "Paradigma yang mendorong perguruan tinggi menjadi pusat solusi nyata bagi masyarakat, melampaui peran penelitian dan pengajaran semata, disebut...",
+      text: "Menurut Adrian (2013), identitas seseorang terdiri dari tiga unsur, yaitu...",
       options: [
-        "Merdeka Belajar",
-        "Diktisaintek Berdampak",
-        "Kampus Merdeka",
-        "Tri Dharma Konvensional",
+        "Nama, alamat, dan pekerjaan",
+        "Tanda, ciri, dan jatidiri",
+        "Ijazah, KTP, dan paspor",
+        "Fisik, mental, dan sosial",
       ],
       correct: 1,
     },
     {
-      text: "Direktorat Jenderal yang menyelenggarakan Workshop Bina Talenta ini bersama Komisi X DPR RI adalah...",
+      text: "Berdasarkan data Alvara Research Center (2026), tiga generasi muda (Post Gen Z, Gen Z, dan Milenial) mencakup berapa persen dari total penduduk Indonesia?",
+      options: ["Sekitar 40%", "Sekitar 55%", "Sekitar 70%", "Sekitar 85%"],
+      correct: 2,
+    },
+    {
+      text: "Salah satu masalah utama yang disebutkan mengenai kekurangan soft skill di kalangan Gen Z adalah...",
       options: [
-        "Ditjen Pendidikan Tinggi",
-        "Ditjen Riset dan Pengembangan (Ditjen Risbang)",
-        "Ditjen Kebudayaan",
-        "Ditjen Vokasi",
+        "Kelebihan motivasi dan inisiatif",
+        "Kurang motivasi dan inisiatif",
+        "Terlalu mudah menerima kritik",
+        "Terlalu ahli memecahkan masalah",
       ],
       correct: 1,
     },
     {
-      text: "Visi jangka panjang yang menjadi arah pembangunan nasional dan dikaitkan dengan peran perguruan tinggi dalam kegiatan ini adalah...",
+      text: "Talenta unggul, menurut materi workshop, tidak cukup diukur hanya dari...",
       options: [
-        "Indonesia Emas 2045",
-        "Indonesia Maju 2030",
-        "Revolusi Industri 4.0",
-        "Merdeka Belajar Kampus Merdeka",
+        "Tanggung jawab sosial",
+        "Kemampuan memecahkan masalah nyata",
+        "Prestasi akademik semata (nilai, IP, IPK)",
+        "Karakter dan integritas",
+      ],
+      correct: 2,
+    },
+    {
+      text: "Workshop Bina Talenta Riset dan Pengembangan FISIP Unila dilaksanakan di...",
+      options: [
+        "Aula Gedung D 3.1 FISIP Unila",
+        "Gedung Rektorat Unila",
+        "Gedung Serba Guna Unila",
+        "Aula Perpustakaan Unila",
       ],
       correct: 0,
     },
     {
-      text: "Kolaborasi riset dan pengabdian kepada masyarakat pada dasarnya diarahkan untuk...",
-      options: [
-        "Meningkatkan jumlah kelulusan mahasiswa",
-        "Menghasilkan inovasi yang hilirisasinya berdampak nyata bagi masyarakat dan daerah",
-        "Menambah jumlah publikasi internasional semata",
-        "Memenuhi syarat akreditasi kampus",
-      ],
+      text: "Gerakan nasional yang diluncurkan Kemdiktisaintek untuk mewujudkan pendidikan tinggi yang berkeadilan, relevan, dan berdampak disebut...",
+      options: ["Merdeka Belajar", "Diktisaintek Berdampak", "Kampus Mengajar", "Kurikulum Merdeka"],
       correct: 1,
     },
     {
-      text: "Metode utama yang digunakan dalam pelaksanaan workshop ini adalah...",
-      options: [
-        "Simulasi dan praktik lapangan",
-        "Ceramah dan diskusi",
-        "Ujian tertulis",
-        "Kunjungan industri",
-      ],
+      text: "Salah satu Unit Kegiatan Mahasiswa Fakultas (UKMF) di FISIP Unila adalah...",
+      options: ["BEM", "DPM", "Social Political English Club (SPEC)", "HMJ Sosiologi"],
+      correct: 2,
+    },
+    {
+      text: "Menurut teori Multiple Intelligence Howard Gardner, kemampuan memahami diri sendiri dan mengontrol emosi termasuk tipe kecerdasan...",
+      options: ["Interpersonal", "Intrapersonal", "Naturalistik", "Eksistensial"],
       correct: 1,
     },
   ],
   post: [
     {
-      text: "Salah satu tujuan utama kolaborasi antara perguruan tinggi, pemerintah, dunia usaha/industri, dan masyarakat dalam kegiatan ini adalah...",
+      text: "Visi Kementerian Pendidikan Tinggi, Sains, dan Teknologi (Kemdiktisaintek) adalah mewujudkan pendidikan tinggi, sains, dan teknologi yang...",
       options: [
-        "Membangun kolaborasi strategis lintas sektor agar kampus menjadi pusat solusi dan inovasi",
-        "Mengurangi jumlah program studi",
-        "Membatasi kerja sama dengan pihak eksternal",
-        "Menstandardisasi kurikulum nasional",
+        "Kompetitif, eksklusif, dan berorientasi profit",
+        "Inklusif, adaptif, dan berdampak",
+        "Konvensional, stabil, dan seragam",
+        "Terpusat, birokratis, dan hierarkis",
+      ],
+      correct: 1,
+    },
+    {
+      text: "Transformasi paradigma yang menekankan pergeseran peran pemimpin institusi dari administrator tradisional menjadi penggerak akademik yang mampu menjalin kemitraan strategis disebut...",
+      options: [
+        "Transformasi Menuju Kampus Berdampak",
+        "Transformasi Leadership 4.0 pada Perguruan Tinggi",
+        "Transformasi Menuju Kemandirian Sains dan Teknologi",
+        "Transformasi Digital dan Sumber Daya Manusia",
+      ],
+      correct: 1,
+    },
+    {
+      text: "Dalam kerangka “Kampus Berdampak”, tiga dimensi yang menjadi ukuran dampak sebuah perguruan tinggi adalah...",
+      options: [
+        "Akademik, riset, dan pengabdian",
+        "Sosial, ekonomi, dan lingkungan",
+        "Nasional, regional, dan internasional",
+        "Dosen, mahasiswa, dan tenaga kependidikan",
+      ],
+      correct: 1,
+    },
+    {
+      text: "Penguatan pendidikan, sains, dan teknologi, serta digitalisasi kampus yang didukung Kemdiktisaintek termasuk dalam Program Prioritas Nasional...",
+      options: [
+        "Prioritas 1 (swasembada pangan, energi, dan air)",
+        "Prioritas 8 (penguatan pendidikan, sains, dan teknologi, serta digitalisasi)",
+        "Prioritas 11 (pelestarian lingkungan hidup)",
+        "Prioritas 17 (pelestarian seni budaya)",
+      ],
+      correct: 1,
+    },
+    {
+      text: "Ciri talenta unggul yang disampaikan dalam workshop mencakup hal-hal berikut, KECUALI...",
+      options: [
+        "Adaptif terhadap perubahan zaman",
+        "Mampu memecahkan masalah nyata",
+        "Hanya berorientasi pada nilai akademik tinggi",
+        "Berkarakter dan berintegritas",
+      ],
+      correct: 2,
+    },
+    {
+      text: "Alat ukur relevansi capaian kompetensi mahasiswa yang mencakup Knowledge, Practical Skill, Leadership, Integrity, hingga Communication & Collaboration disebut...",
+      options: [
+        "iCGPA (Integrated Cumulative Grade Point Average)",
+        "IPK murni",
+        "SKS kumulatif",
+        "Nilai UKT",
       ],
       correct: 0,
     },
     {
-      text: "Karakter yang ingin ditumbuhkan pada talenta muda Indonesia melalui kegiatan ini, sesuai tema workshop, adalah...",
+      text: "Fungsi identitas menurut Richard Jenkins (dalam Zharfandy, 2016) adalah menerjemahkan kenyataan lingkungan ke dalam persepsi individu, serta...",
       options: [
-        "Karakter pasif dan menunggu arahan",
-        "Karakter unggul dan semangat kompetitif",
-        "Karakter individualis",
-        "Karakter konsumtif",
+        "Menghapus batas-batas diri seseorang",
+        "Memperpanjang atau mempertahankan keberadaan individu",
+        "Mengubah identitas menjadi status sosial",
+        "Menyeragamkan pandangan individu terhadap lingkungan",
       ],
       correct: 1,
     },
     {
-      text: "Salah satu manfaat yang diharapkan dari kegiatan ini bagi kebijakan Kemdiktisaintek adalah...",
+      text: "Solusi yang ditawarkan untuk mengatasi kekurangan soft skill di kalangan Gen Z, seperti disampaikan dalam workshop, adalah dengan...",
       options: [
-        "Menghapus kebijakan yang sudah ada",
-        "Menjaring aspirasi dan masukan untuk kebijakan yang lebih adaptif dan tepat sasaran",
-        "Mengurangi anggaran riset",
-        "Membatasi partisipasi perguruan tinggi daerah",
-      ],
-      correct: 1,
-    },
-    {
-      text: "Perguruan tinggi didorong bergeser orientasinya dari sekadar kuantitas kelulusan menuju...",
-      options: [
-        "Peningkatan jumlah mahasiswa baru",
-        "Pemecahan masalah konkret bangsa dan kemajuan daerah",
-        "Penambahan gedung kampus",
-        "Pengurangan jumlah dosen",
-      ],
-      correct: 1,
-    },
-    {
-      text: "Unsur yang terlibat sebagai narasumber dalam kegiatan Workshop Bina Talenta ini umumnya berasal dari...",
-      options: [
-        "Hanya mahasiswa",
-        "Pimpinan perguruan tinggi, pejabat Kemdiktisaintek, dan pakar/praktisi eksternal",
-        "Hanya alumni",
-        "Hanya media massa",
+        "Menambah jam pelajaran teori di kelas",
+        "Melatih diri melalui organisasi, komunitas, atau kegiatan kerelawanan",
+        "Membatasi penggunaan teknologi digital",
+        "Mengurangi keterlibatan dalam kegiatan sosial",
       ],
       correct: 1,
     },
