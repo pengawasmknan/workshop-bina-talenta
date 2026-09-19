@@ -571,7 +571,7 @@
 
     const ranked = Array.from(bestByNim.values())
       .sort((a, b) => Number(a.durasiDetik) - Number(b.durasiDetik))
-      .slice(0, 3);
+      .slice(0, 5);
 
     const listEl = $("#leaderboard-list");
     if (!ranked.length) {
@@ -581,7 +581,7 @@
     listEl.innerHTML = ranked
       .map((d, i) => `
         <div class="leaderboard-item leaderboard-item--${i + 1}">
-          <span class="leaderboard-rank">${MEDALS[i]}</span>
+          <span class="leaderboard-rank">${MEDALS[i] || `<span class="leaderboard-rank-num">${i + 1}</span>`}</span>
           <span class="leaderboard-main">
             <span class="leaderboard-name">${escapeHtml(d.nama)}</span><br>
             <span class="leaderboard-nim">${escapeHtml(d.nim)}</span>
